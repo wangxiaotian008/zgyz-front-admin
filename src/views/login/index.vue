@@ -71,12 +71,12 @@
 
 <script>
 import {validUsername} from '@/utils/validate'
-import LangSelect from '@/components/LangSelect'
-import SocialSign from './socialsignin'
+// import LangSelect from '@/components/LangSelect'
+// import SocialSign from './socialsignin'
 
 export default {
   name: 'Login',
-  components: {LangSelect, SocialSign},
+  // components: {SocialSign},
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -233,6 +233,7 @@ export default {
 
     .login-container {
         min-height: 100%;
+        height: 100%;
         width: 100%;
         background-color: $bg;
         overflow: hidden;
