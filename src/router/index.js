@@ -25,6 +25,11 @@ Vue.use(VueRouter)
     // component: function () {
     //   return import(/* webpackChunkName: "about" */ '../views/About.vue')
     // }
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: ()=> import('@/views/home')
   }
 ]
 

@@ -12,14 +12,16 @@
 
             <el-form-item prop="username">
                 <span class="svg-container">
-                  <svg-icon icon-class="user"/>
+<!--                  <svg-icon icon-class="user"/>-->
+                    <i class="el-icon-user-solid"></i>
                 </span>
                 <el-input ref="username" v-model="loginForm.username" :placeholder="用户名" name="username" type="text" auto-complete="on"/>
             </el-form-item>
 
             <el-form-item prop="password">
                 <span class="svg-container">
-                  <svg-icon icon-class="password"/>
+                  <!--<svg-icon icon-class="password"/>-->
+                    <i class="el-icon-lock"></i>
                 </span>
                 <el-input
                         :key="passwordType"
@@ -40,39 +42,12 @@
                        @click.native.prevent="handleLogin">
                 登录
             </el-button>
-
-           <!-- <div style="position:relative">
-                <div class="tips">
-                    <span>账号 : admin</span>
-                    <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-                </div>
-                <div class="tips">
-                    <span style="margin-right:18px;">
-                        {{ $t('login.username') }} : editor
-                    </span>
-                    <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-                </div>
-
-                <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
-                    {{ $t('login.thirdparty') }}
-                </el-button>
-            </div>-->
         </el-form>
-
-       <!-- <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
-            {{ $t('login.thirdpartyTips') }}
-            <br>
-            <br>
-            <br>
-            <social-sign/>
-        </el-dialog>-->
     </div>
 </template>
 
 <script>
 import {validUsername} from '@/utils/validate'
-// import LangSelect from '@/components/LangSelect'
-// import SocialSign from './socialsignin'
 
 export default {
   name: 'Login',
@@ -233,7 +208,6 @@ export default {
 
     .login-container {
         min-height: 100%;
-        height: 100%;
         width: 100%;
         background-color: $bg;
         overflow: hidden;
