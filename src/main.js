@@ -6,12 +6,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css/normalize.css'
 // import {getUsers} from '@/api/home'
 import {login} from "./api/home";
+import store from "./store";
 import '@/styles/index.scss' // global css
 Vue.config.productionTip = false
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
 
 new Vue({
   router,
+  store,
   render: function (h) { return h(App) },
 
 }).$mount('#app')

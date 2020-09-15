@@ -35,16 +35,16 @@
         <h2>云平台工作记录管理系统</h2>
         <el-form ref="loginForm">
             <div class="inputBox">
-                <input type="text" name="" ref="usernameInput" @focus="usernameValiteFocus" @blur="usernameValiteBlur" required="">
+                <input type="text" v-model="username" ref="usernameInput" @focus="usernameValiteFocus" @blur="usernameValiteBlur" required="">
                 <label ref="username" v-text="usernameMessage" v-bind:class="{isRed:isRed, isWhite:isWhite}">用户名</label>
             </div>
             <div class="inputBox">
-                <input type="password" name="" ref="passwordInput" @focus="passwordValiteFocus" @blur="passwordValiteBlur" required="">
-                <label ref="password" v-text="passwordMessage" v-bind:class="{isRed:isPwdRed, isWhite:isPwdWhite}">密码</label>
+                <input type="password" v-model="password" ref="passwordInput" @focus="passwordValiteFocus" @blur="passwordValiteBlur" required="">
+                <label ref="password" v-text="passwordMessage" v-on:keyup.enter="login" v-bind:class="{isRed:isPwdRed, isWhite:isPwdWhite}">密码</label>
             </div>
-            <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                <el-button @click="resetForm()">重置</el-button>
+            <el-form-item style="text-align: right">
+                <el-button type="primary" :loading="loading" @click="login" round :disabled="buttonDisabled">登录</el-button>
+                <el-button @click="resetForm" round type="info">重置</el-button>
             </el-form-item>
         </el-form>
 <!--        <el-form :model="loginForm" ref="loginForm">-->
@@ -77,6 +77,9 @@ export default {
       isPwdWhite: true,
       username: '',
       password: '',
+      loading: false,
+      buttonDisabled: false,
+      directUrl:''
     }
   },
   methods:{
@@ -86,6 +89,7 @@ export default {
         this.$refs.username.value=this.usernameMessage;
         this.isRed = true;
         this.isWhite = false;
+        this.buttonDisabled = true;
       }
     },
     usernameValiteFocus: function (event) {
@@ -93,6 +97,7 @@ export default {
       this.$refs.username.value=this.usernameMessage;
       this.isRed = false;
       this.isWhite = true;
+      this.buttonDisabled = false;
     },
     passwordValiteBlur: function (event) {
       if (event.target.value === ''|| event.target.value == null){
@@ -100,20 +105,38 @@ export default {
         this.$refs.username.value=this.passwordMessage;
         this.isPwdRed = true;
         this.isPwdWhite = false;
+        this.buttonDisabled = true;
       }
     },
     passwordValiteFocus: function (event) {
-      console.log('focus'+event.target.type);
       this.passwordMessage = '密码';
       this.$refs.username.value=this.passwordMessage;
       this.isPwdRed = false;
       this.isPwdWhite = true;
+      this.buttonDisabled = false;
     },
     resetForm() {
       this.$refs.usernameInput.value=''
       this.$refs.passwordInput.value=''
+    },
+    login(){
+      this.loading=true;
+      this.$store.dispatch('user/login', {'username': this.username, 'password': this.password}).then(res=>{
+        // 需要测试。
+        this.$router.push(this.directUrl)
+        console.log("登录成功")
+      }).catch(error=>{
+        console.log(error)
+
+      })
+      this.loading=false
     }
 
+  },
+  watch:{
+    $route: function (route) {
+        this.directUrl = route.path
+    }
   }
 
 
