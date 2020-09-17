@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import login from '@/views/login/index'
 
 Vue.use(VueRouter)
 
@@ -12,9 +11,9 @@ Vue.use(VueRouter)
   },
   {
     path: '/login',
-    name: 'Home',
+    name: 'Login',
     // component: Home
-    component: login
+    component: ()=> import('@/views/login')  // 通过这种方式可以实现懒加载(就是访问到哪个组件就加载哪个组件，而不是全都加载)
   },
   {
     path: '/about',
@@ -27,11 +26,6 @@ Vue.use(VueRouter)
     // }
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: ()=> import('@/views/home')
-  },
-  {
     path: '/404',
     component: () => import('@/views/errorPage/404'),
     hidden: true
@@ -41,14 +35,22 @@ Vue.use(VueRouter)
     component: () => import('@/views/errorPage/401'),
     hidden: true
   },
-
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
+
 })
 
 
