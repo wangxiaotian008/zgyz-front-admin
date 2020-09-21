@@ -133,10 +133,16 @@ export default {
     }
 
   },
-  watch:{
-    $route: function (route) {
-        this.directUrl = route.path
+  watch: {
+    $route: {
+      handler: function (to, from) {
+        this.directUrl = to.query && to.query.redirect
+      },
+      immediate: true
     }
+  },
+  created() {
+    console.log("login created")
   }
 
 

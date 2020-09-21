@@ -15,6 +15,7 @@ const service = axios.create({
 const Bearer = 'Bearer '
 // 在发送请求前，把登录成功后的token放到header里
 service.interceptors.request.use(config=>{
+  console.log("interceptors")
   config.headers['Authorization'] = Bearer + getToken();
   console.log(config);
   return config;
@@ -25,6 +26,7 @@ service.interceptors.request.use(config=>{
 
 // 对请求返回来的数据进行处理，从response的header里获取到token并更新前台token
 service.interceptors.response.use(response=>{
+  console.log("")
   console.log(response);
   let statusCode = response.data.statusCode;
   let errorCode = response.data.errorCode;
@@ -49,6 +51,7 @@ service.interceptors.response.use(response=>{
     }
     return Promise.reject('error')
   }
+  return Promise.resolve(response);
 
 }, error => {
   return Promise.reject(error)

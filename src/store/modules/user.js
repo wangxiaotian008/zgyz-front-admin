@@ -27,6 +27,9 @@ const actions={
         commit('SET_TOKEN', res.data.body.token);
         setToken(res.data.body.token);
         commit('SET_NAME', res.data.body.user.username);
+        let roles = [];
+        roles.push(res.data.body.user.role);
+        commit('SET_ROLES', roles);
         resolve()
       }).catch(ex=>{
         console.log(ex);
