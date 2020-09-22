@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <h1>欢迎用户{{name}}使用云平台管理系统</h1>
     </div>
 </template>

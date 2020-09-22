@@ -6,17 +6,17 @@
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
-        <search class="right-menu-item" />
+        <!--<search class="right-menu-item" />-->
 
-        <error-log class="errLog-container right-menu-item hover-effect" />
+        <!--<error-log class="errLog-container right-menu-item hover-effect" />-->
 
-        <screenfull class="right-menu-item hover-effect" />
+        <!--<screenfull class="right-menu-item hover-effect" />-->
 
-        <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
-          <size-select class="right-menu-item hover-effect" />
+        <el-tooltip content="布局大小" effect="dark" placement="bottom">
+          <!--<size-select class="right-menu-item hover-effect" />-->
         </el-tooltip>
 
-        <lang-select class="right-menu-item hover-effect" />
+        <!--<lang-select class="right-menu-item hover-effect" />-->
 
       </template>
 
@@ -28,16 +28,16 @@
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              {{ $t('navbar.dashboard') }}
+              首页
             </el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
             <el-dropdown-item>
-              {{ $t('navbar.github') }}
+              项目地址
             </el-dropdown-item>
           </a>
           <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
+            <span style="display:block;" @click="logout">退出登录</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -50,7 +50,7 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 // import ErrorLog from '@/components/ErrorLog'
-import Screenfull from '@/components/Screenfull'
+/*import Screenfull from '@/components/Screenfull'*/
 import SizeSelect from '@/components/SizeSelect'
 // import LangSelect from '@/components/LangSelect'
 // import Search from '@/components/HeaderSearch'
@@ -60,8 +60,8 @@ export default {
     Breadcrumb,
     Hamburger,
     // ErrorLog,
-    Screenfull,
-    SizeSelect,
+    // Screenfull,
+    // SizeSelect,
     // LangSelect,
     // Search
   },

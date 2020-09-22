@@ -11,7 +11,7 @@ Vue.use(VueRouter)
 
 // 静态路由，不需要配置权限就可以访问得路由.
 // 注： 对于子路由来说，path不要带'/', 带了‘/’会出现访问不到得问题。
-const constantRoutes = [
+export const constantRoutes = [
   {
     path: '',
     name: 'Welcome',
@@ -74,7 +74,7 @@ const router = new VueRouter({
   },
 })
 
-const asyncRoutes = [
+export const asyncRoutes = [
   {
     path: '/rolelist',
     name: 'RoleList',
@@ -99,48 +99,43 @@ router.beforeEach(async(to, from, next) => {
   // console.log(getToken())
   let hasToken = store.state.user.token;
 
-  console.log("guard");
-  console.log(hasToken);
   if (hasToken) {
-    console.log("hastoken")
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
     } else {
-
-      const hasRoles = store.getters.roles && store.getters.roles.length > 0
-      if (hasRoles) {
-        next()
-      } else {
-        try {
-          // 该地方被注掉，是因为登录之后就返回了用户信息
-          // get user info
-          // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
-          // const { roles } = await store.dispatch('user/getInfo')
-
-          // generate accessible routes map based on roles
-          const accessRoutes = await store.dispatch('permission/generateRoutes', store.getters.roles)
-
-          // dynamically add accessible routes
-          router.addRoutes(accessRoutes)
-
-          // hack method to ensure that addRoutes is complete
-          // set the replace: true, so the navigation will not leave a history record
-          next({ ...to, replace: true })
-        } catch (error) {
-          // remove token and go to login page to re-login
-          await store.dispatch('user/resetToken')
-          Message.error(error || 'Has Error')
-          next(`/login?redirect=${to.path}`)
-          NProgress.done()
-        }
-      }
+      next()
+      // const hasRoles = store.getters.roles && store.getters.roles.length > 0
+      // if (hasRoles) {
+      //   next()
+      // } else {
+      //   try {
+      //     // 该地方被注掉，是因为登录之后就返回了用户信息
+      //     // get user info
+      //     // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
+      //     // const { roles } = await store.dispatch('user/getInfo')
+      //
+      //     // generate accessible routes map based on roles
+      //     const accessRoutes = await store.dispatch('permission/generateRoutes', store.getters.roles)
+      //
+      //     // dynamically add accessible routes
+      //     router.addRoutes(accessRoutes)
+      //
+      //     // hack method to ensure that addRoutes is complete
+      //     // set the replace: true, so the navigation will not leave a history record
+      //     next({ ...to, replace: true })
+      //   } catch (error) {
+      //     // remove token and go to login page to re-login
+      //     await store.dispatch('user/resetToken')
+      //     Message.error(error || 'Has Error')
+      //     next(`/login?redirect=${to.path}`)
+      //     NProgress.done()
+      //   }
+      // }
     }
   } else {
     /* has no token*/
-    console.log("hasnotoken")
-    console.log(to.path)
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
       next()

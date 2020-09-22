@@ -1,35 +1,4 @@
 <template>
-    <!-- <div class="wrap">
-         <div class="container">-->
-    <!--&lt;!&ndash;    登陆模块中间的图标&ndash;&gt;
-    <div class="login_box">
-        <div class="avatar_box">
-            &lt;!&ndash;<img  src="../assets/logo.png" alt="">&ndash;&gt;
-        </div>
-        &lt;!&ndash;     登陆表单区域&ndash;&gt;
-        <el-form ref="loginformref" :model="loginForm"  label-width="0px" class="login_form">
-
-            <el-form-item prop="name">
-                <el-input v-model="loginForm.name"  placeholder="请输入用户名"
-                          prefix-icon="el-icon-user-solid"></el-input>
-            </el-form-item>
-
-            &lt;!&ndash;        prop="password"为了重置成功  表单域 model 字段，
-            在使用 validate、resetFields 方法的情况下，该属性是必填的
-            https://www.cnblogs.com/chr506029589/p/11290161.html &ndash;&gt;
-            <el-form-item  prop="password">
-                <el-input v-model="loginForm.password" placeholder="请输入密码"
-                          prefix-icon="el-icon-lock"  type="password"></el-input>
-            </el-form-item>
-
-            <el-form-item class="btns">
-                <el-button type="primary" @click="login">登录</el-button>
-                <el-button type="info" @click="resetLoginForm">重置</el-button>
-            </el-form-item >
-
-        </el-form>
-        &lt;!&ndash;      button&ndash;&gt;
--->
 
     <div class="box">
         <h2>云平台工作记录管理系统</h2>
@@ -47,23 +16,12 @@
                 <el-button @click="resetForm" round type="info">重置</el-button>
             </el-form-item>
         </el-form>
-<!--        <el-form :model="loginForm" ref="loginForm">-->
-<!--            <div class="inputBox">-->
-<!--                <el-input v-model="loginForm.username" class="input"></el-input>-->
-<!--                <label>用户名</label>-->
-<!--            </div>-->
-<!--            <div class="inputBox">-->
-<!--                <el-input v-model="loginForm.password"></el-input>-->
-<!--                <label>密码</label>-->
-<!--            </div>-->
-<!--            <el-form-item>-->
-<!--                <el-button type="primary" @click="">查询</el-button>-->
-<!--            </el-form-item>-->
-<!--        </el-form>-->
     </div>
 </template>
 
 <script>
+import router from "../../router";
+
 export default {
   name: "Login",
   data(){
@@ -122,9 +80,16 @@ export default {
     login(){
       this.loading=true;
       this.$store.dispatch('user/login', {'username': this.username, 'password': this.password}).then(res=>{
-        // 需要测试。
-        this.$router.push(this.directUrl)
         console.log("登录成功")
+        // 登录成功后需要根据用户角色来动态配置路由
+        this.$store.dispatch('permission/generateRoutes', this.$store.state.user.role).then(res=>{
+          console.log("generateRoutes finished")
+          router.addRoutes(res)
+          console.log(router)
+          this.$router.push(this.directUrl)
+        }).catch(error=>{
+          console.log(error)
+        })
       }).catch(error=>{
         console.log(error)
 
