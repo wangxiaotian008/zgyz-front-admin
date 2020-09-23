@@ -20,7 +20,8 @@ export const constantRoutes = [
     children: [
       {
         path: 'welcome',
-        component: ()=> import('@/views/welcome')
+        component: ()=> import('@/views/welcome'),
+        meta: { title: 'welcome', icon: '404', noCache: true, affix: true }
       }
     ],
   },
@@ -33,13 +34,19 @@ export const constantRoutes = [
     children: [
       {
         path: 'list',
-        component: ()=> import('@/views/worksheet/list')
+        component: ()=> import('@/views/worksheet/list'),
+        meta: { title: 'articleList', icon: 'list' }
       },
       {
         path: 'create',
-        component: ()=> import('@/views/worksheet/create')
+        component: ()=> import('@/views/worksheet/create'),
+        meta: { title: 'createArticle', icon: 'edit' }
       }
-    ]
+    ],
+    meta: {
+      title: 'worksheet',
+      icon: 'example'
+    }
   },
   {
     path: '/login',

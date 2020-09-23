@@ -4,7 +4,7 @@
       <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
         <span v-if="item.redirect==='noredirect'||index==levelList.length-1" class="no-redirect">{{
           item.meta.title }}</span>
-        <a v-else @click.prevent="handleLink(item)">{{ generateTitle(item.meta.title) }}</a>
+        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title}}</a>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
@@ -34,8 +34,8 @@ export default {
       let matched = this.$route.matched.filter(item => item.name)
 
       const first = matched[0]
-      if (first && first.name.trim().toLocaleLowerCase() !== 'Dashboard'.toLocaleLowerCase()) {
-        matched = [{ path: '/dashboard', meta: { title: 'dashboard' }}].concat(matched)
+      if (first && first.name.trim().toLocaleLowerCase() !== 'Welcome'.toLocaleLowerCase()) {
+        matched = [{ path: '/welcome', meta: { title: 'welocome' }}].concat(matched)
       }
 
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)

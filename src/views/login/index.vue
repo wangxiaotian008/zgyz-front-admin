@@ -1,21 +1,24 @@
 <template>
 
-    <div class="box">
-        <h2>云平台工作记录管理系统</h2>
-        <el-form ref="loginForm">
-            <div class="inputBox">
-                <input type="text" v-model="username" ref="usernameInput" @focus="usernameValiteFocus" @blur="usernameValiteBlur" required="">
-                <label ref="username" v-text="usernameMessage" v-bind:class="{isRed:isRed, isWhite:isWhite}">用户名</label>
-            </div>
-            <div class="inputBox">
-                <input type="password" v-model="password" v-on:keyup.enter="login" ref="passwordInput" @focus="passwordValiteFocus" @blur="passwordValiteBlur" required="">
-                <label ref="password" v-text="passwordMessage" v-bind:class="{isRed:isPwdRed, isWhite:isPwdWhite}">密码</label>
-            </div>
-            <el-form-item style="text-align: right">
-                <el-button type="primary" :loading="loading" @click="login" round :disabled="buttonDisabled">登录</el-button>
-                <el-button @click="resetForm" round type="info">重置</el-button>
-            </el-form-item>
-        </el-form>
+    <div class="chuangkou">
+        <div class="box">
+            <h2>云平台工作记录管理系统</h2>
+            <el-form ref="loginForm">
+                <div class="inputBox">
+                    <input type="text" v-model="username" ref="usernameInput" @focus="usernameValiteFocus" @blur="usernameValiteBlur" required="">
+                    <label ref="username" v-text="usernameMessage" v-bind:class="{isRed:isRed, isWhite:isWhite}">用户名</label>
+                </div>
+                <div class="inputBox">
+                    <input type="password" v-model="password" v-on:keyup.enter="login" ref="passwordInput" @focus="passwordValiteFocus" @blur="passwordValiteBlur" required="">
+                    <label ref="password" v-text="passwordMessage" v-bind:class="{isRed:isPwdRed, isWhite:isPwdWhite}">密码</label>
+                </div>
+                <el-form-item style="text-align: right">
+                    <el-button type="primary" :loading="loading" @click="login" round :disabled="buttonDisabled">登录</el-button>
+                    <el-button @click="resetForm" round type="info">重置</el-button>
+                </el-form-item>
+                <svg-icon icon-class="404"></svg-icon>
+            </el-form>
+        </div>
     </div>
 </template>
 
@@ -121,12 +124,17 @@ export default {
     .isWhite{
         color: white;
     }
+    .chuangkou{
+        height:100%;
+        width: 100%;
+        font-family: sans-serif;
+        background: url("../../assets/img/login.jpg");
+        background-size: cover;
+    }
     body{
         margin:0;
         padding: 0;
         font-family: sans-serif;
-        background: url("../../assets/img/login.jpg");
-        background-size: cover;
     }
     .box
     {
